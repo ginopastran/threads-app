@@ -5,6 +5,7 @@ import ThreadCard from "@/components/cards/ThreadCard";
 
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
+import Pagination from "@/components/shared/Pagination";
 
 async function Home({
   searchParams,
@@ -47,6 +48,11 @@ async function Home({
           </>
         )}
       </section>
+      <Pagination
+        path="/"
+        pageNumber={searchParams?.page ? +searchParams.page : 1}
+        isNext={result.isNext}
+      />
     </>
   );
 }
