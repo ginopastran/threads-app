@@ -6,7 +6,6 @@ import ThreadCard from "@/components/cards/ThreadCard";
 
 import { fetchUser } from "@/lib/actions/user.actions";
 import { fetchThreadById } from "@/lib/actions/thread.actions";
-import Thread from "@/lib/models/thread.model";
 
 export const revalidate = 0;
 
@@ -22,7 +21,7 @@ async function page({ params }: { params: { id: string } }) {
   const thread = await fetchThreadById(params.id);
 
   return (
-    <section className="relative">
+    <section className='relative'>
       <div>
         <ThreadCard
           id={thread._id}
@@ -33,22 +32,23 @@ async function page({ params }: { params: { id: string } }) {
           community={thread.community}
           createdAt={thread.createdAt}
           comments={thread.children}
-          isComment
         />
       </div>
 
-      <div className="mt-7">
+      <div className='mt-7'>
         <Comment
           threadId={params.id}
-          currentUserImg={userInfo.image}
+          currentUserImg={user.imageUrl}
           currentUserId={JSON.stringify(userInfo._id)}
         />
       </div>
-      <div className=" mt-10">
+
+      <div className='mt-10'>
         {thread.children.map((childItem: any) => (
           <ThreadCard
+            key={childItem._id}
             id={childItem._id}
-            currentUserId={childItem.id}
+            currentUserId={user.id}
             parentId={childItem.parentId}
             content={childItem.text}
             author={childItem.author}
